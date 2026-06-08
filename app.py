@@ -88,14 +88,13 @@ st.info(q["question"])
 
 # Use a form so the radio button doesn't instantly trigger a reload before clicking submit
 with st.form(key="quiz_form"):
-    user_choice = st.radio("Choose your answer:", q["options"], index=None, placeholder="Select an option...")
+    # Fixed version line below for older Streamlit compatibility
+    user_choice = st.radio("Choose your answer:", q["options"])
     submit_button = st.form_submit_button(label="Submit Answer 🚀")
 
 # 6. Handle Answer Submission
 if submit_button:
-    if user_choice is None:
-        st.warning("Please select an answer first!")
-    elif st.session_state.answered:
+    if st.session_state.answered:
         st.warning("You already answered this one! Click 'Next Question' below.")
     else:
         st.session_state.answered = True
